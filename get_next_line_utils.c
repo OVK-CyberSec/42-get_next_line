@@ -10,4 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+int	found_newline()
+{
 
+}
+
+t_list	*ft_lst_get_last()
+{
+
+}
+
+void	generate_line()
+{
+
+}
+
+void	free_stash()
+{
+	
+}

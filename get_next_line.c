@@ -10,4 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+char    *get_next_line(int fd)
+{
 
+}
+
+
+void    rd-and-stash()
+{
+
+}
+
+void    add_to_stash()
+{
+
+}
+
+void    extract_line()
+{
+
+}
+
+void    clean_stash()
+{
+
+}
