@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef get_next_line.h
-# define RUSH02_H
+# define get_next_line.h
 
 # include <unistd.h>
 # include <stdlib.h>
