@@ -16,55 +16,19 @@ int	found_newline(t_list *list)
     int i;
 
     if (!list)
-        return NULL;
-    i = 0;
-        while(list->content[i] != '\n'
-            && list->content[i] != '\0')
-            i++;
-        if (list->content == '\n')
-        {
-            list = list->content;
-            return 1;
-        }
-        else
-        {
-            list = list->content;
-            return 0;
-        }
-    return 0;
-}
-
-void  create_list(t_list *list, int fd)
-{
-    int readed_char;
-    char *buf;
-
-    while(!found_newline(*list))
+        return (0);
+    while(list)
     {
-        buf = malloc(BUFFER_SIZE + 1);
-        if (!buf)
-            return ;
-        readed_char = read(fd, buf, BUFFER_SIZE);
-        if (!readed_char)
+        i = 0;
+        while(list->content[i] && i < BUFFER_SIZE)
         {
-            free(buf);
-            return ;
+            if (list->content[i] == '\n')
+                return (1);
+            i++;
         }
-        buf[readed_char] = '\0';
-        append(list, buf);
+        list = list->next;
     }
-}
-
-char	get_line(t_list *list)
-{
-	t_list	*temp;
-
-	if (!lst)
-		return (NULL);
-	temp = lst;
-	while (temp->next != NULL)
-		temp = temp->next;
-	return (temp);
+    return (0);
 }
 
 void    copy_str(t_list *list, char *str)
@@ -74,7 +38,7 @@ void    copy_str(t_list *list, char *str)
 
     if (!list)
         return ;
-    k = 0;
+    j = 0;
     while (list)
     {
         i = 0;
@@ -82,16 +46,16 @@ void    copy_str(t_list *list, char *str)
         {
             if (list->content[i] == '\n')
             {
-                str[k++] = '\n';
-                str[k] = '\0'; 
+                str[j++] = '\n';
+                str[j] = '\0'; 
                 list = list->next;
                 return ;
             }
-            str[k++] = list->content[i++];
+            str[j++] = list->content[i++];
         }
         list = list->next;
     }
-    
+    str[j] = '\0';
 }
 
 int	len_to_newline(t_list *list)
@@ -120,14 +84,34 @@ int	len_to_newline(t_list *list)
     return (len);
 }
 
-char	*find_last_node(t_list *lst)
+void    dealloc(t_list **list, t_list *clean_node, char *buf)
 {
-    t_list	*temp;
+    t_list *temp;
 
-	if (!lst)
+    if (!(*list))
+        return ;
+    while (*list)
+    {
+        temp = ((*list)->next);
+        free((*list)->content);
+        free(*list);
+        *list = temp;
+    }
+    *list = NULL;
+    if (clean_node->content[0])
+        *list = clean_node;
+    else
+    {
+        free(buf);
+        free(clean_node);
+    }
+}
+
+t_list	*find_last_node(t_list *list)
+{
+	if (!list)
 		return (NULL);
-	temp = lst;
-	while (temp->next != NULL)
-		temp = temp->next;
-	return (temp);
+	while (list->next)
+		list = list->next;
+	return (list);
 }

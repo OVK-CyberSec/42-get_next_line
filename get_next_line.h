@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef get_next_line.h
-# define get_next_line.h
+#ifndef get_next_line_h
+# define get_next_line_h
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <stdio.h>
 
-# define BUFFER_SIZE 1024
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 5
+#endif
 
-// **** files utils ****
 typedef struct s_list
 {
     char    *content;
@@ -28,6 +30,16 @@ typedef struct s_list
 
 
 
+void  create_list(t_list **list, int fd);
+void    append(t_list **list, char *buf);
+void    start_new_line(t_list **list);
+void    dealloc(t_list **list, t_list *clean_node, char *buf);
+int	    found_newline(t_list *list);
+t_list	*find_last_node(t_list *lst);
 char    *get_next_line(int fd);
+int	len_to_newline(t_list *list);
+void    copy_str(t_list *list, char *str);
+void    get_new_line(t_list **list);
+char	*get_line(t_list *list);
 
 #endif
